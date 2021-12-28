@@ -30,8 +30,7 @@ twitter_username: N/A
 github_username:  sacred81
 
 # Build settings
-theme: minima
-  #theme: jekyll-theme-cayman
+theme: cayman
 plugins:
   - jekyll-feed
 
