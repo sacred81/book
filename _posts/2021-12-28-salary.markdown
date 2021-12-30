@@ -1,0 +1,57 @@
+---
+layout: default
+
+# 입력
+title:  "2021-12 정산"
+date:   2021-12-28
+gid: 1191859192
+se-date: 2021-12-28
+ex:
+  - dis: 카드
+    etc: 623865
+  - dis: 카드생활비
+    amo: 516070
+  - dis: 인터넷
+    amo: 33694
+  - dis: 보험
+    amo: 43680
+  - dis: 관리비
+    amo: 241660
+  - dis: 이자
+    amo: 802137
+  - dis: 청약
+    amo: 100000
+  - dis: 교통
+    amo: 71460
+  - dis: 통신
+    amo: 27335
+  - dis: 가스
+    amo: 9340
+  - dis: 용돈
+    amo: 100100
+  - dis: 가족회비
+    amo: 50000
+in:
+  - dis: 급여
+    amo: 4456190
+---
+{% for i in page.in %}
+{% assign i-sum = i-sum | plus: i.amo %}
+{% endfor %}
+{% for e in page.ex %}
+{% assign e-sum = e-sum | plus: e.amo %}
+{% endfor %}
+{% assign estimated = i-sum | minus: e-sum %}
+입금 : {{ estimated }}  &nbsp;&nbsp;  입금일 : {{ page.se-date }}
+
+[카드 사용 내역](https://docs.google.com/spreadsheets/d/1B8a3oEj3C8kWo9ULhdcTKwj_7wGjs9vOirPSZHpIjAM/edit#gid={{ page.gid }})
+
+| 항목 | 수입 | 지출 | 비고 |
+|:--:|:--:|:--:|:--:|
+{%- for i in page.in %}
+| {{ i.dis }} | {{ i.amo }} | | {{ i.etc }} |
+{%- endfor -%}
+{%- for e in page.ex %}
+| {{ e.dis }} | | {{ e.amo }} | {{ e.etc }} |
+{%- endfor %}
+| 계 | {{ i-sum }} | {{ e-sum }} | {{ estimated }} |
