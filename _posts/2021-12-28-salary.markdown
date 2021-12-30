@@ -9,6 +9,7 @@ se-date: 2021-12-28
 ex:
   - dis: 카드
     etc: 623865
+    csv:
   - dis: 카드생활비
     amo: 516070
   - dis: 인터넷
@@ -17,6 +18,7 @@ ex:
     amo: 43680
   - dis: 관리비
     amo: 241660
+    img:
   - dis: 이자
     amo: 802137
   - dis: 청약
@@ -49,9 +51,25 @@ in:
 | 항목 | 수입 | 지출 | 비고 |
 |:--:|:--:|:--:|:--:|
 {%- for i in page.in %}
-| {{ i.dis }} | {{ i.amo }} | | {{ i.etc }} |
+|
+{%- if i.csv -%}
+[{{i.dis}}]({{site.baseurl}}/csv.html?csv={{i.csv}})
+{%- elsif i.img -%}
+[{{i.dis}}]({{site.baseurl}}/image.html?image={{i.img}})
+{%- else -%}
+{{ i.dis }}
+{%- endif -%}
+| {{ i.amo }} | | {{ i.etc }} |
 {%- endfor -%}
 {%- for e in page.ex %}
-| {{ e.dis }} | | {{ e.amo }} | {{ e.etc }} |
+|
+{%- if e.csv -%}
+[{{e.dis}}]({{site.baseurl}}/csv.html?csv={{e.csv}})
+{%- elsif e.img -%}
+[{{e.dis}}]({{site.baseurl}}/image.html?image={{e.img}})
+{%- else -%}
+{{ e.dis }}
+{%- endif -%}
+| | {{ e.amo }} | {{ e.etc }} |
 {%- endfor %}
 | 계 | {{ i-sum }} | {{ e-sum }} | {{ estimated }} |

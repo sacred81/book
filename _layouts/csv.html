@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: " ko-KR" }}">
+
+<head>
+  {% seo %}
+  {% include head.html %}
+</head>
+
+<body>
+  <header>
+    {% include header.html %}
+  </header>
+
+  <div id="content-wrapper">
+    <div class="inner clearfix">
+      <section id="main-content">
+        <a onclick="window.history.back()">뒤로가기</a>
+        <div id="draw-csv" />
+        <script>
+          function drawTable(csv) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var table = document.createElement("table");
+              var rows = e.target.result.split("\n");
+              for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].split(",");
+                if (cells.length > 1) {
+                  var row = table.insertRow(-1);
+                  for (var j = 0; j < cells.length; j++) {
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = cells[j];
+                  }
+                }
+              }
+              var drawCSV = document.getElementById("draw-csv");
+              drawCSV.innerHTML = "";
+              drawCSV.appendChild(table);
+            }
+            reader.readAsText(csv);
+          }
+
+          var blob = null;
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", 'assets/csv/' + getParameterByName("csv"));
+          xhr.responseType = "blob";
+          xhr.onload = function () {
+            blob = xhr.response;
+            drawTable(blob);
+          }
+          xhr.send();
+        </script>
+
+        {% include footer.html %}
+      </section>
+    </div>
+  </div>
+</body>
+
+</html>

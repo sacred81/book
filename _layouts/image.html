@@ -14,7 +14,10 @@
   <div id="content-wrapper">
     <div class="inner clearfix">
       <section id="main-content">
-        {{ content }}
+        <a onclick="window.history.back()">뒤로가기</a>
+        <script>
+          document.write("<img data-action=\"zoom\" src=\"assets/images/" + getParameterByName("image") + "\">")
+        </script>
 
         {% include footer.html %}
       </section>
