@@ -23,9 +23,12 @@
               var table = document.createElement("table");
               var rows = e.target.result.split("\n");
               for (var i = 0; i < rows.length; i++) {
-                var cells = rows[i].split(",");
+                //var cells = rows[i].split(",");
+                //var cells = rows[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                var cells = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 if (cells.length > 1) {
                   var row = table.insertRow(-1);
+
                   for (var j = 0; j < cells.length; j++) {
                     var cell = row.insertCell(-1);
                     cell.innerHTML = cells[j];

@@ -4,7 +4,6 @@ layout: default
 # 입력
 title:  "2021-12 정산"
 date:   2021-12-28
-gid: 1191859192
 se-date: 2021-12-28
 ex:
   - dis: 카드
@@ -12,6 +11,7 @@ ex:
     csv:
   - dis: 카드생활비
     amo: 516070
+    csv: card-2021-12.csv
   - dis: 인터넷
     amo: 33694
   - dis: 보험
@@ -45,8 +45,6 @@ in:
 {% endfor %}
 {% assign estimated = i-sum | minus: e-sum %}
 입금 : {{ estimated }}  &nbsp;&nbsp;  입금일 : {{ page.se-date }}
-
-[카드 사용 내역](https://docs.google.com/spreadsheets/d/1B8a3oEj3C8kWo9ULhdcTKwj_7wGjs9vOirPSZHpIjAM/edit#gid={{ page.gid }})
 
 | 항목 | 수입 | 지출 | 비고 |
 |:--:|:--:|:--:|:--:|
