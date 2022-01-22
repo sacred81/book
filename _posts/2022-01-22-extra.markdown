@@ -1,0 +1,46 @@
+---
+layout: default
+
+# 입력
+title:  "2022-01 연차수당"
+date:   2022-01-22
+se-date: 2022-01-22
+in:
+  - dis: 연차수당
+    amo: 1152960
+    etc: 잔여휴가 8일
+---
+{% for i in page.in %}
+{% assign i-sum = i-sum | plus: i.amo %}
+{% endfor %}
+{% for e in page.ex %}
+{% assign e-sum = e-sum | plus: e.amo %}
+{% endfor %}
+{% assign estimated = i-sum | minus: e-sum %}
+입금 : {{ estimated }}  &nbsp;&nbsp;  입금일 : {{ page.se-date }}
+
+| 항목 | 수입 | 지출 | 비고 |
+|:--:|:--:|:--:|:--:|
+{%- for i in page.in %}
+|
+{%- if i.csv -%}
+[{{i.dis}}]({{site.baseurl}}/csv.html?csv={{i.csv}})
+{%- elsif i.img -%}
+[{{i.dis}}]({{site.baseurl}}/image.html?image={{i.img}})
+{%- else -%}
+{{ i.dis }}
+{%- endif -%}
+| {{ i.amo }} | | {{ i.etc }} |
+{%- endfor -%}
+{%- for e in page.ex %}
+|
+{%- if e.csv -%}
+[{{e.dis}}]({{site.baseurl}}/csv.html?csv={{e.csv}})
+{%- elsif e.img -%}
+[{{e.dis}}]({{site.baseurl}}/image.html?image={{e.img}})
+{%- else -%}
+{{ e.dis }}
+{%- endif -%}
+| | {{ e.amo }} | {{ e.etc }} |
+{%- endfor %}
+| 계 | {{ i-sum }} | {{ e-sum }} | {{ estimated }} |
